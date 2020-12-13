@@ -9,15 +9,21 @@ export class App extends Component {
         country: ''
     }
     async componentDidMount() {
-        const fetchedData = await fetchData();
-        this.setState({ data: fetchedData })
+        this.methodToFetachData()
     }
     handleCountryChange = async (country) => {
+        this.methodToFetachData(country)
+    }
+    methodToFetachData = async (country) => {
         const fetchedData = await fetchData(country);
-        this.setState({
-            data: fetchedData,
-            country: country
-        })
+        if (country !== 'Global') {
+            this.setState({
+                data: fetchedData,
+                country: country
+            })
+        } else {
+            this.setState({ data: fetchedData })
+        }
     }
     render() {
         const { data, country } = this.state
